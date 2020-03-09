@@ -4,17 +4,24 @@
 
 <div class = "form-group">
 <label for = "UserName">UserName</label>
-<input ngModel name = "UserName" #UserName = "ngModel" type = "text" minlength = "6" maxlength = "14" pattern="^[a-z0-9_-]{8,15}$" class = "form-control" id = "UserName" (change) = "log(UserName)">
-</div>
+<input ngModel name = "UserName" #UserName = "ngModel" type = "text" minlength = "6" maxlength = "15" [pattern] = "userNamePattern" class = "form-control" id = "UserName" (change) = "log(UserName)">
+<div class = "alert alert-danger" *ngIf = "UserName.touched && !UserName.valid">
 <!-- validations for username -->
-<div class = "alert alert-danger" *ngIf = "UserName.touched && !!UserName.valid">username is required</div>
-<div class = "alert alert-danger" *ngIf = "UserName.errors.minlength">minimum length should be {{UserName.errors.minlength.requiredLength}}</div>
-<div class = "alert alert-danger" *ngIf = "UserName.errors.pattern">did't match the patteren</div>
+<div *ngIf = "UserName.errors.required">username is required</div>
+<div *ngIf = "UserName.errors.minlength">minimum length should be {{UserName.errors.minlength.requiredLength}}</div>
+<div *ngIf = "UserName.errors.pattern">did't match the pattern</div>
+</div>
+</div>
 
 <div class = "form-group">
 <label for = "Password">Password</label>
-<input ngModel name = "password" #password = "ngModel" type = "password" class = "form-control" id = "Password" >
-<div class = "alert alert-danger" *ngIf = "password.touched && !password.valid">Password is Required</div>
+<input ngModel name = "password" #password = "ngModel" type = "text" minlength = "6" class = "form-control" id = "Password" [pattern] = "passwordPattern" (change) = "log1(password)">
+<!-- validations for password -->
+<div class = "alert alert-danger" *ngIf = "password.touched && !password.valid">
+<div *ngIf = "password.errors.required">password is required</div>
+<div *ngIf = "password.errors.minlength">minimum length should be {{password.errors.minlength.requiredLength}}</div>
+<div *ngIf = "password.errors.pattern">did't match the pattern</div>
+</div>
 </div>
 
 <button class = "btn btn-primary">Submit</button>
