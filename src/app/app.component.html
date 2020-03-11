@@ -4,7 +4,7 @@
 
 <div class = "form-group">
 <label for = "UserName">UserName</label>
-<input ngModel name = "UserName" #UserName = "ngModel" type = "text" minlength = "6" maxlength = "15" [pattern] = "userNamePattern" class = "form-control" id = "UserName" (change) = "log(UserName)">
+<input ngModel name = "UserName" #UserName = "ngModel" type = "text" minlength = "6" maxlength = "15" pattern = "^[a-zA-Z0-9]{6,20}$" class = "form-control" id = "UserName" (change) = "log(UserName)">
 <div class = "alert alert-danger" *ngIf = "UserName.touched && !UserName.valid">
 <!-- validations for username -->
 <div *ngIf = "UserName.errors.required">username is required</div>
@@ -15,12 +15,12 @@
 
 <div class = "form-group">
 <label for = "Password">Password</label>
-<input ngModel name = "password" #password = "ngModel" type = "text" minlength = "6" class = "form-control" id = "Password" [pattern] = "passwordPattern" (change) = "log1(password)">
+<input ngModel name = "password" #password = "ngModel" type = "text" class = "form-control" id = "Password" minlength = "6" pattern = "^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,8}$" (change) = "log1(password)">
 <!-- validations for password -->
 <div class = "alert alert-danger" *ngIf = "password.touched && !password.valid">
 <div *ngIf = "password.errors.required">password is required</div>
 <div *ngIf = "password.errors.minlength">minimum length should be {{password.errors.minlength.requiredLength}}</div>
-<div *ngIf = "password.errors.pattern">did't match the pattern</div>
+<div *ngIf = "password.errors.pattern">password must include one uppercase letter, one lowercase letter, and one number, special character</div>
 </div>
 </div>
 
